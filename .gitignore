@@ -86,4 +86,4 @@ lint/tmp/
 
 # Android Profiling
 *.hprof
-/app/src/main/java/com/philippschumann/wallpapercarousel/CarouselViewModel.kt
+
