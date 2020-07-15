@@ -82,6 +82,7 @@ abstract class CarouselDatabase : RoomDatabase() {
             carouselDao.deleteAll()
             for (i in 0 until 10) {
                 var carousel: Carousel = Carousel(0)
+
                 carouselDao.insert(carousel)
             }
         }

@@ -7,18 +7,14 @@ import androidx.lifecycle.viewModelScope
 import com.philippschumann.wallpapercarousel.database.CarouselDatabase
 import com.philippschumann.wallpapercarousel.database.CarouselRepository
 import com.philippschumann.wallpapercarousel.model.Carousel
+import com.philippschumann.wallpapercarousel.model.CarouselWithImages
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class CarouselViewModel(application: Application) : AndroidViewModel(application) {
+class CarouselOverviewViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: CarouselRepository
-
-    // Using LiveData and caching what getAlphabetizedWords returns has several benefits:
-    // - We can put an observer on the data (instead of polling for changes) and only update the
-    //   the UI when the data actually changes.
-    // - Repository is completely separated from the UI through the ViewModel.
-    val allCarousels: LiveData<List<Carousel>>
+    val allCarousels: LiveData<List<CarouselWithImages>>
 
     init {
         val carouselDao = CarouselDatabase.getDatabase(

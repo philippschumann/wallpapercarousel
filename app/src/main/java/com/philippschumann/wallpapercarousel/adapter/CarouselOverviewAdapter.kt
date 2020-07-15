@@ -4,14 +4,13 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.philippschumann.wallpapercarousel.R
 import com.philippschumann.wallpapercarousel.model.Carousel
 
-class CarouselAdapter internal constructor(context: Context) :
-    RecyclerView.Adapter<CarouselAdapter.ViewHolder>() {
+class CarouselOverviewAdapter internal constructor(context: Context) :
+    RecyclerView.Adapter<CarouselOverviewAdapter.ViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var carousels = emptyList<Carousel>()
@@ -21,7 +20,7 @@ class CarouselAdapter internal constructor(context: Context) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView = inflater.inflate(R.layout.main_list_item_4_wallpapers, parent, false)
+        val itemView = inflater.inflate(R.layout.fragment_carousel_overview_list_item_4_wallpapers, parent, false)
         return ViewHolder(itemView)
     }
 

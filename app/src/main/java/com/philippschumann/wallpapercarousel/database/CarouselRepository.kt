@@ -4,12 +4,13 @@ import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import com.philippschumann.wallpapercarousel.dao.CarouselDao
 import com.philippschumann.wallpapercarousel.model.Carousel
+import com.philippschumann.wallpapercarousel.model.CarouselWithImages
 
 class CarouselRepository(private val carouselDao: CarouselDao) {
 
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
-    val allCarousels: LiveData<List<Carousel>> = carouselDao.getCarousels()
+    val allCarousels: List<CarouselWithImages> = carouselDao.getCarouselsWithImages()
 
     // You must call this on a non-UI thread or your app will crash. So we're making this a
     // suspend function so the caller methods know this.
