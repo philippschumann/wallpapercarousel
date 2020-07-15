@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.philippschumann.wallpapercarousel.adapter.CarouselAdapter
@@ -14,9 +16,8 @@ import com.philippschumann.wallpapercarousel.model.Carousel
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 class FirstFragment : Fragment() {
-    private val exampleList = generateDummyList(500)
-    private val adapter = CarouselAdapter(exampleList)
-
+    private lateinit var carouselViewModel: CarouselViewModel
+    private lateinit var adapter: CarouselAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,22 +34,14 @@ class FirstFragment : Fragment() {
               findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
           }*/
         val recyclerView: RecyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
+        adapter = CarouselAdapter(requireContext())
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(activity?.applicationContext)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.setHasFixedSize(true)
-    }
 
-    private fun generateDummyList(size: Int): List<Carousel> {
-        val list = ArrayList<Carousel>()
-        for (i in 0 until size) {
-            /*val drawable = when (i % 3) {
-                0 -> R.drawable.ic_android
-                1 -> R.drawable.ic_audio
-                else -> R.drawable.ic_sun
-            }*/
-            val item = Carousel(i)
-            list += item
-        }
-        return list
+        carouselViewModel = ViewModelProvider(this).get(CarouselViewModel::class.java)
+        carouselViewModel.allCarousels.observe(viewLifecycleOwner, Observer { carousels ->
+            carousels?.let { adapter.setCarousels(it) }
+        })
     }
 }

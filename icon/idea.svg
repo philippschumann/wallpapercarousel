@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   sodipodi:docname="idea.svg"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   width="512.0px"
+   height="512.0px"
+   viewBox="0 0 512.0 512.0"
+   version="1.1"
+   id="SVGRoot">
+  <defs
+     id="defs18" />
+  <sodipodi:namedview
+     inkscape:window-maximized="1"
+     inkscape:window-y="-9"
+     inkscape:window-x="2551"
+     inkscape:window-height="1361"
+     inkscape:window-width="2560"
+     showgrid="true"
+     inkscape:document-rotation="0"
+     inkscape:current-layer="layer1"
+     inkscape:document-units="px"
+     inkscape:cy="158.00397"
+     inkscape:cx="88.086013"
+     inkscape:zoom="1"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base">
+    <inkscape:grid
+       type="xygrid"
+       id="grid27" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata21">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Layer 1">
+    <rect
+       y="50"
+       x="168.34201"
+       height="311.67297"
+       width="175.31599"
+       id="rect34"
+       style="fill:#00ff00;fill-rule:evenodd;stroke-width:19.4786" />
+    <rect
+       y="100.16351"
+       x="284.68402"
+       height="311.67297"
+       width="175.31599"
+       id="rect38"
+       style="fill:#ff6600;fill-rule:evenodd;stroke-width:19.4786" />
+    <rect
+       style="fill:#aa0000;fill-rule:evenodd;stroke-width:19.4786"
+       id="rect40"
+       width="175.31599"
+       height="311.67297"
+       x="70"
+       y="100.16351" />
+    <rect
+       y="180"
+       x="168.34201"
+       height="311.67297"
+       width="175.31599"
+       id="rect42"
+       style="fill:#0000ff;fill-rule:evenodd;stroke-width:19.4786" />
+  </g>
+</svg>

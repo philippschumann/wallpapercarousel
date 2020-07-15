@@ -5,7 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.philippschumann.wallpapercarousel.database.CarouselDatabase
-import com.philippschumann.wallpapercarousel.database.CarouselDatabase.CarouselRoomDatabase.Companion.getDatabase
 import com.philippschumann.wallpapercarousel.database.CarouselRepository
 import com.philippschumann.wallpapercarousel.model.Carousel
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +18,7 @@ class CarouselViewModel(application: Application) : AndroidViewModel(application
     // - We can put an observer on the data (instead of polling for changes) and only update the
     //   the UI when the data actually changes.
     // - Repository is completely separated from the UI through the ViewModel.
-    val allWords: LiveData<List<Carousel>>
+    val allCarousels: LiveData<List<Carousel>>
 
     init {
         val carouselDao = CarouselDatabase.getDatabase(
@@ -27,7 +26,7 @@ class CarouselViewModel(application: Application) : AndroidViewModel(application
             viewModelScope
         ).carouselDao()
         repository = CarouselRepository(carouselDao)
-        allWords = repository.allWords
+        allCarousels = repository.allCarousels
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.philippschumann.wallpapercarousel.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,29 +9,31 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.philippschumann.wallpapercarousel.R
 import com.philippschumann.wallpapercarousel.model.Carousel
-import kotlinx.android.synthetic.main.fragment_first_list_item.view.*
 
-class CarouselAdapter(private val exampleList: List<Carousel>) :
-    RecyclerView.Adapter<CarouselAdapter.ExampleViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExampleViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(
-            R.layout.fragment_first_list_item,
-            parent, false
-        )
-        return ExampleViewHolder(itemView)
+class CarouselAdapter internal constructor(context: Context) :
+    RecyclerView.Adapter<CarouselAdapter.ViewHolder>() {
+
+    private val inflater: LayoutInflater = LayoutInflater.from(context)
+    private var carousels = emptyList<Carousel>()
+
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val textPrimary = itemView.findViewById<TextView>(R.id.text_view_1)
     }
 
-    override fun onBindViewHolder(holder: ExampleViewHolder, position: Int) {
-        val currentItem = exampleList[position]
-        //  holder.imageView.setImageResource(currentItem.imageResource)
-        holder.textView1.text = currentItem.id.toString()
-        //holder.textView2.text = currentItem.text2
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val itemView = inflater.inflate(R.layout.main_list_item_4_wallpapers, parent, false)
+        return ViewHolder(itemView)
     }
 
-    override fun getItemCount() = exampleList.size
-    class ExampleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imageView: ImageView = itemView.image_view
-        val textView1: TextView = itemView.text_view_1
-        val textView2: TextView = itemView.text_view_2
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val current = carousels[position]
+        holder.textPrimary.text = current.carouselId.toString()
     }
+
+    internal fun setCarousels(carousels: List<Carousel>) {
+        this.carousels = carousels
+        notifyDataSetChanged()
+    }
+
+    override fun getItemCount() = carousels.size
 }
