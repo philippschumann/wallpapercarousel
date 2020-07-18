@@ -9,7 +9,7 @@ import com.philippschumann.wallpapercarousel.model.CarouselWithImages
 interface CarouselDao {
     @Transaction
     @Query("SELECT * FROM carousel_table")
-    fun getCarouselsWithImages(): List<CarouselWithImages>
+    fun getCarouselsWithImages(): LiveData<List<CarouselWithImages>>
 
     @Query("SELECT * from carousel_table ORDER BY carouselId ASC")
     fun getCarousels(): LiveData<List<Carousel>>

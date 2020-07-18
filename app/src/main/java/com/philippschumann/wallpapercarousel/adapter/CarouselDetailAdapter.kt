@@ -27,14 +27,23 @@ class CarouselDetailAdapter internal constructor(context: Context) :
         val itemView: View = if (viewType == VIEW_TYPE_SETTINGS) {
             inflater.inflate(R.layout.fragment_carousel_detail_settings_list_item, parent, false)
         } else {
-            inflater.inflate(R.layout.fragment_carousel_overview_list_item_4_wallpapers, parent, false)
+            inflater.inflate(
+                R.layout.fragment_carousel_overview_list_item_4_wallpapers,
+                parent,
+                false
+            )
         }
         return ViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val current = images[position]
-        holder.text.text = current.path
+        if (getItemViewType(position) == VIEW_TYPE_SETTINGS) {
+
+        } else if (getItemViewType(position) == VIEW_TYPE_ITEM) {
+            val current = images[position]
+            holder.text.text = current.path
+        }
+
     }
 
     internal fun setCarousel(carousel: CarouselWithImages) {
@@ -42,6 +51,7 @@ class CarouselDetailAdapter internal constructor(context: Context) :
         notifyDataSetChanged()
     }
 
+    //add one for settings view
     override fun getItemCount() = images.size + 1
 
     override fun getItemViewType(position: Int): Int {
