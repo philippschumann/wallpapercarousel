@@ -2,9 +2,9 @@ package com.philippschumann.wallpapercarousel
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -36,12 +36,8 @@ class CarouselOverviewFragment : Fragment(), CarouselOverviewCellClickListener,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        /*  view.findViewById<Button>(R.id.button_first).setOnClickListener {
-              findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-          }*/
         val recyclerView: RecyclerView =
-            view.findViewById<RecyclerView>(R.id.recycler_view_overview)
+            view.findViewById(R.id.recycler_view_overview)
         overviewAdapter = CarouselOverviewAdapter(requireContext(), this)
         recyclerView.adapter = overviewAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -59,9 +55,10 @@ class CarouselOverviewFragment : Fragment(), CarouselOverviewCellClickListener,
     }
 
     override fun onCellClicked(carousel: CarouselWithImages) {
-        //Toast.makeText(requireContext(), carousel.carousel.carouselId, Toast.LENGTH_SHORT).show()
         sharedViewModel.select(carousel)
-        findNavController().navigate(R.id.action_OverviewFragment_to_DetailFragment)
+        val bundle =
+            bundleOf(CarouselDetailFragment.NAVIGATION_TYPE to CarouselDetailFragment.NAVIGATION_EDIT_CAROUSEL)
+        findNavController().navigate(R.id.action_OverviewFragment_to_DetailFragment, bundle)
     }
 
     companion object {
@@ -71,7 +68,9 @@ class CarouselOverviewFragment : Fragment(), CarouselOverviewCellClickListener,
 
     override fun fabClicked() {
         if (this.isVisible) {
-            Log.d(TAG, "new carousel")
+            val bundle =
+                bundleOf(CarouselDetailFragment.NAVIGATION_TYPE to CarouselDetailFragment.NAVIGATION_NEW_CAROUSEL)
+            findNavController().navigate(R.id.action_OverviewFragment_to_DetailFragment, bundle)
         }
     }
 

@@ -15,6 +15,14 @@ class Carousel(var interval: Int) {
     @Ignore
     var images: List<Image>? = null
 
+    fun isEmpty(): Boolean {
+        var empty: Boolean = true
+        if (!images.isNullOrEmpty()) {
+            empty = false
+        }
+        return empty
+    }
+
 
 }
 

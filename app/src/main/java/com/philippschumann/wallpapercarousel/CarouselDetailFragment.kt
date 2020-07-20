@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.philippschumann.wallpapercarousel.adapter.CarouselDetailAdapter
+import com.philippschumann.wallpapercarousel.database.model.Carousel
 import com.philippschumann.wallpapercarousel.database.model.CarouselWithImages
 
 class CarouselDetailFragment : Fragment(), MainActivity.FABClickedListener {
@@ -44,12 +45,19 @@ class CarouselDetailFragment : Fragment(), MainActivity.FABClickedListener {
         recyclerView.adapter = detailAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.setHasFixedSize(true)
-        // detailAdapter.setCarousel(carousel)
-        sharedViewModel.selected.observe(
-            viewLifecycleOwner,
-            Observer<CarouselWithImages> { carousel ->
-                Log.d(TAG, "selected carousel: " + carousel.carousel.carouselId)
-            })
+        if (arguments?.getString(NAVIGATION_TYPE) == NAVIGATION_EDIT_CAROUSEL) {
+            sharedViewModel.selected.observe(
+                viewLifecycleOwner,
+                Observer<CarouselWithImages> { carousel ->
+                    Log.d(TAG, "selected carousel: " + carousel.carousel.carouselId)
+
+                    Log.d(TAG, "edit carousel")
+                    detailAdapter.setCarousel(carousel)
+
+                })
+        } else if (arguments?.getString(NAVIGATION_TYPE) == NAVIGATION_NEW_CAROUSEL) {
+            sharedViewModel.selected.value = CarouselWithImages(Carousel(0), emptyList())
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -66,6 +74,11 @@ class CarouselDetailFragment : Fragment(), MainActivity.FABClickedListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
+                if (arguments?.getString(NAVIGATION_TYPE) == NAVIGATION_NEW_CAROUSEL) {
+                    //TODO insert carousel if not empty
+                } else if (arguments?.getString(NAVIGATION_TYPE) == NAVIGATION_EDIT_CAROUSEL) {
+                    //TODO update carousel or delete if empty
+                }
                 findNavController().navigate(R.id.action_DetailFragment_to_OverviewFragment)
                 Log.d("detail fragment", "navigate up")
             }
@@ -75,6 +88,9 @@ class CarouselDetailFragment : Fragment(), MainActivity.FABClickedListener {
 
     companion object {
         const val TAG: String = "CarouselDetailFragment"
+        const val NAVIGATION_TYPE = "navigation_type"
+        const val NAVIGATION_NEW_CAROUSEL = "new_carousel"
+        const val NAVIGATION_EDIT_CAROUSEL = "edit_carousel"
     }
 
     override fun onAttach(context: Context) {
