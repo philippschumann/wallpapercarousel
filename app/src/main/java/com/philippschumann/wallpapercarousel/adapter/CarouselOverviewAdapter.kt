@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.philippschumann.wallpapercarousel.CarouselOverviewCellClickListener
 import com.philippschumann.wallpapercarousel.R
-import com.philippschumann.wallpapercarousel.model.CarouselWithImages
+import com.philippschumann.wallpapercarousel.database.model.CarouselWithImages
 
 class CarouselOverviewAdapter internal constructor(
     private val context: Context,

@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.philippschumann.wallpapercarousel.R
-import com.philippschumann.wallpapercarousel.model.CarouselWithImages
-import com.philippschumann.wallpapercarousel.model.Image
+import com.philippschumann.wallpapercarousel.database.model.CarouselWithImages
+import com.philippschumann.wallpapercarousel.database.model.Image
 
 class CarouselDetailAdapter internal constructor(context: Context) :
     RecyclerView.Adapter<CarouselDetailAdapter.ViewHolder>() {

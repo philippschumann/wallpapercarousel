@@ -2,9 +2,10 @@ package com.philippschumann.wallpapercarousel.database
 
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
-import com.philippschumann.wallpapercarousel.dao.CarouselDao
-import com.philippschumann.wallpapercarousel.model.Carousel
-import com.philippschumann.wallpapercarousel.model.CarouselWithImages
+import com.philippschumann.wallpapercarousel.database.dao.CarouselDao
+import com.philippschumann.wallpapercarousel.database.model.Carousel
+import com.philippschumann.wallpapercarousel.database.model.CarouselWithImages
+import com.philippschumann.wallpapercarousel.database.model.Image
 
 class CarouselRepository(private val carouselDao: CarouselDao) {
 
@@ -20,5 +21,17 @@ class CarouselRepository(private val carouselDao: CarouselDao) {
     @WorkerThread
     suspend fun insert(carousel: Carousel) {
         carouselDao.insert(carousel)
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun insertImage(image: Image) {
+        carouselDao.insert(image)
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun deleteCarousels() {
+        carouselDao.deleteCarousels()
     }
 }

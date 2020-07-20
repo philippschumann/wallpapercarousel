@@ -1,22 +1,22 @@
 package com.philippschumann.wallpapercarousel
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.philippschumann.wallpapercarousel.adapter.CarouselOverviewAdapter
-import com.philippschumann.wallpapercarousel.model.CarouselWithImages
+import com.philippschumann.wallpapercarousel.database.model.CarouselWithImages
 
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
-class CarouselOverviewFragment : Fragment(), CarouselOverviewCellClickListener {
-    private lateinit var carouselOverviewViewModel: CarouselOverviewViewModel
+class CarouselOverviewFragment : Fragment(), CarouselOverviewCellClickListener,
+    MainActivity.FABClickedListener {
+    private val sharedViewModel: SharedViewModel by activityViewModels()
     private lateinit var overviewAdapter: CarouselOverviewAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,10 +46,7 @@ class CarouselOverviewFragment : Fragment(), CarouselOverviewCellClickListener {
         recyclerView.adapter = overviewAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.setHasFixedSize(true)
-
-        carouselOverviewViewModel =
-            ViewModelProvider(this).get(CarouselOverviewViewModel::class.java)
-        carouselOverviewViewModel.allCarousels.observe(viewLifecycleOwner, Observer { carousels ->
+        sharedViewModel.allCarousels.observe(viewLifecycleOwner, Observer { carousels ->
             carousels?.let { overviewAdapter.setCarousels(it) }
         })
     }
@@ -63,6 +60,23 @@ class CarouselOverviewFragment : Fragment(), CarouselOverviewCellClickListener {
 
     override fun onCellClicked(carousel: CarouselWithImages) {
         //Toast.makeText(requireContext(), carousel.carousel.carouselId, Toast.LENGTH_SHORT).show()
+        sharedViewModel.select(carousel)
         findNavController().navigate(R.id.action_OverviewFragment_to_DetailFragment)
+    }
+
+    companion object {
+        const val TAG = "overview fragment"
+    }
+
+
+    override fun fabClicked() {
+        if (this.isVisible) {
+            Log.d(TAG, "new carousel")
+        }
+    }
+
+    override fun onAttach(context: Context) {
+        (activity as MainActivity).setFABClickListener(this)
+        super.onAttach(context)
     }
 }

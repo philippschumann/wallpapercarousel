@@ -5,15 +5,15 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.philippschumann.wallpapercarousel.dao.CarouselDao
-import com.philippschumann.wallpapercarousel.model.Carousel
-import com.philippschumann.wallpapercarousel.model.Image
+import com.philippschumann.wallpapercarousel.database.dao.CarouselDao
+import com.philippschumann.wallpapercarousel.database.model.Carousel
+import com.philippschumann.wallpapercarousel.database.model.Image
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-@Database(entities = [Carousel::class, Image::class], version = 2)
+@Database(entities = [Carousel::class, Image::class], version = 9)
 abstract class CarouselDatabase : RoomDatabase() {
 
     abstract fun carouselDao(): CarouselDao
@@ -79,12 +79,26 @@ abstract class CarouselDatabase : RoomDatabase() {
             wordDao.insert(word)
             word = Word("World!")
             wordDao.insert(word)*/
-            carouselDao.deleteAll()
-            for (i in 0 until 10) {
-                var carousel: Carousel = Carousel(0)
+            carouselDao.deleteCarousels()
 
-                carouselDao.insert(carousel)
-            }
+            /* for (i in 0 until 10) {
+                 var carousel: Carousel = Carousel(0)
+                 var image: Image = Image("/test/pfad/", carousel.id)
+                 carouselDao.insertWithImages(carousel, listOf<Image>(image))
+             }
+             /*    var carousels: LiveData<List<CarouselWithImages>> = carouselDao.getCarouselsWithImages()
+                 for (carousel in carousels.value!!) {
+                     var image: Image = Image("/test/pfad/", carousel.carousel.carouselId)
+                     carouselDao.insert(image)
+                 }*/*/
+
+            val carousel: Carousel = Carousel(0)
+            carouselDao.insert(carousel)/*
+            Log.d("db", "carousel id: " + carousel.carouselId)
+            val carousels: List<Carousel> = carouselDao.getCarouselsS()
+            Log.d("db", "carousels size: " + carousels.size)
+            val image: Image = Image("test", carousels.get(0).carouselId)
+            carouselDao.insert(image)*/
         }
     }
 

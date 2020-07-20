@@ -1,21 +1,21 @@
 package com.philippschumann.wallpapercarousel
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.philippschumann.wallpapercarousel.adapter.CarouselDetailAdapter
-import com.philippschumann.wallpapercarousel.model.CarouselWithImages
+import com.philippschumann.wallpapercarousel.database.model.CarouselWithImages
 
-/**
- * A simple [Fragment] subclass as the second destination in the navigation.
- */
-class CarouselDetailFragment() : Fragment() {
-
+class CarouselDetailFragment : Fragment(), MainActivity.FABClickedListener {
+    private val sharedViewModel: SharedViewModel by activityViewModels()
     private lateinit var detailAdapter: CarouselDetailAdapter
 
     override fun onCreateView(
@@ -45,7 +45,11 @@ class CarouselDetailFragment() : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.setHasFixedSize(true)
         // detailAdapter.setCarousel(carousel)
-
+        sharedViewModel.selected.observe(
+            viewLifecycleOwner,
+            Observer<CarouselWithImages> { carousel ->
+                Log.d(TAG, "selected carousel: " + carousel.carousel.carouselId)
+            })
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -65,14 +69,22 @@ class CarouselDetailFragment() : Fragment() {
                 findNavController().navigate(R.id.action_DetailFragment_to_OverviewFragment)
                 Log.d("detail fragment", "navigate up")
             }
-            /*R.id.action_settings -> {
-                Log.d(TAG, "go to settings")
-            }*/
         }
         return super.onOptionsItemSelected(item)
     }
 
     companion object {
         const val TAG: String = "CarouselDetailFragment"
+    }
+
+    override fun onAttach(context: Context) {
+        (activity as MainActivity).setFABClickListener(this)
+        super.onAttach(context)
+    }
+
+    override fun fabClicked() {
+        if (this.isVisible) {
+            //fab clicked
+        }
     }
 }
