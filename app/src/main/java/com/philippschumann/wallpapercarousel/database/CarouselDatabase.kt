@@ -13,7 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-@Database(entities = [Carousel::class, Image::class], version = 9)
+@Database(entities = [Carousel::class, Image::class], version = 10)
 abstract class CarouselDatabase : RoomDatabase() {
 
     abstract fun carouselDao(): CarouselDao
@@ -92,7 +92,7 @@ abstract class CarouselDatabase : RoomDatabase() {
                      carouselDao.insert(image)
                  }*/*/
 
-            val carousel: Carousel = Carousel(0)
+            val carousel: Carousel = Carousel()
             carouselDao.insert(carousel)/*
             Log.d("db", "carousel id: " + carousel.carouselId)
             val carousels: List<Carousel> = carouselDao.getCarouselsS()

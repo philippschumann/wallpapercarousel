@@ -26,7 +26,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         ).carouselDao()
         repository = CarouselRepository(carouselDao)
         deleteCarousels()
-        val carousel: Carousel = Carousel(0)
+        val carousel: Carousel = Carousel()
         carousel.carouselId = 1
         insert(carousel)
         val image: Image = Image("test", carousel.carouselId)

@@ -2,12 +2,41 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp">
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="48dp"
-        android:text="settings place holder"
+        android:gravity="center_vertical"
+        android:text="Update Wallpaper every"
+        app:layout_constraintEnd_toStartOf="@+id/edit_text_interval"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edit_text_interval"
+        android:layout_width="64dp"
+        android:layout_height="48dp"
+        android:paddingStart="8dp"
+        android:paddingLeft="8dp"
+        android:paddingEnd="8dp"
+        android:paddingRight="8dp"
+        android:inputType="number"
+        android:gravity="center_horizontal"
+        app:layout_constraintEnd_toStartOf="@id/spinner_frequency"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/spinner_frequency"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:paddingStart="8dp"
+        android:paddingLeft="8dp"
+        android:paddingEnd="0dp"
+        android:paddingRight="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

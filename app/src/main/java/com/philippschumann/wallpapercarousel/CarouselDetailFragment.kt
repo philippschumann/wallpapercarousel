@@ -56,7 +56,7 @@ class CarouselDetailFragment : Fragment(), MainActivity.FABClickedListener {
 
                 })
         } else if (arguments?.getString(NAVIGATION_TYPE) == NAVIGATION_NEW_CAROUSEL) {
-            sharedViewModel.selected.value = CarouselWithImages(Carousel(0), emptyList())
+            sharedViewModel.selected.value = CarouselWithImages(Carousel(), emptyList())
         }
     }
 
